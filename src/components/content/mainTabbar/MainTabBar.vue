@@ -1,6 +1,6 @@
 <template>
  <tab-bar>
-      <tab-bar-item path="/home" activeColor="skyblue">
+      <tab-bar-item path="/home">
       <!-- Vue2在url或者dom中使用别名要在前面加~ Vue3加@ -->
         <img slot="item-icon" src="~assets/img/tabbar/home.svg" alt="">
         <img slot="item-icon-active" src="~assets/img/tabbar/home_active.svg" alt="">
@@ -25,8 +25,8 @@
 </template>
 
 <script>
-import TabBar from 'components/tabbar/TabBar';
-import TabBarItem from './tabbar/TabBarItem.vue'
+import TabBar from 'components/common/tabbar/TabBar';
+import TabBarItem from 'components/common/tabbar/TabBarItem.vue'
 
 export default {
   name: "MainTabBar",
