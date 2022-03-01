@@ -24,7 +24,7 @@
     </tab-bar>
 </template>
 
-<script>
+<script >
 import TabBar from 'components/common/tabbar/TabBar';
 import TabBarItem from 'components/common/tabbar/TabBarItem.vue'
 
@@ -37,5 +37,5 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 </style>
