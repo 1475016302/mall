@@ -10,6 +10,13 @@ export function getDetail (iid) {
   })
 }
 
+// 请求商品推荐数据
+export function getRecommend () {
+  return request({
+    url: '/recommend'
+  })
+}
+
 // 使用类Class整合detail数据
 // 商品信息
 export class Goods {

@@ -20,27 +20,28 @@
 </template>
 
 <script>
-import NavBar from "components/common/navbar/NavBar";
+import NavBar from 'components/common/navbar/NavBar';
 
 export default {
-  name: "DetailNavBar",
+  name: 'DetailNavBar',
   components: {
-    NavBar,
+    NavBar
   },
   data() {
     return {
-      titles: ["商品", "参数", "评论", "推荐"],
-      currentIndex: 0,
+      titles: ['商品', '参数', '评论', '推荐'],
+      currentIndex: 0
     };
   },
   methods: {
     itemClick(index) {
       this.currentIndex = index;
+      this.$emit('titleClick', index);
     },
-    backClick(){
-      this.$router.back()
+    backClick() {
+      this.$router.back();
     }
-  },
+  }
 };
 </script>
 

@@ -4,7 +4,7 @@
 :root {
   /* css定义变量 通过var()使用变量 */
   --color-text: #666;
-  --color-high-text: #ff5777;
+  --color-high-text: #fc6782;
   --color-tint: #ff8198;
   --color-background: #fff;
   --font-size: 14px;

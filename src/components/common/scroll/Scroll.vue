@@ -7,22 +7,22 @@
 </template>
 
 <script>
-import BScroll from "better-scroll";
+import BScroll from 'better-scroll';
 export default {
-  name: "Scroll",
+  name: 'Scroll',
   props: {
     probeType: {
       type: Number,
-      default: 0,
+      default: 0
     },
     pullUpLoad: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   data() {
     return {
-      scroll: null, //把scroll对象存在这个组件的数据里面保留
+      scroll: null //把scroll对象存在这个组件的数据里面保留
     };
   },
   // 不要用document.querySelector获取 dom可能也会有wrapper
@@ -33,21 +33,21 @@ export default {
     this.scroll = new BScroll(this.$refs.wrapper, {
       click: true, // div,span等元素的点击需要加这个属性
       probeType: this.probeType, // 监听位置
-      pullUpLoad: this.pullUpLoad, // 上拉
+      pullUpLoad: this.pullUpLoad // 上拉
       //   observeDOM: true, //这个如果不设置，滚动条会失效
     });
     // 2.监听滚动的位置
     if (this.probeType === 2 || this.probeType === 3) {
-      this.scroll.on("scroll", (position) => {
+      this.scroll.on('scroll', (position) => {
         // console.log(position);
-        this.$emit("scroll", position);
+        this.$emit('scroll', position);
       });
     }
     // 3.监听scroll滚动到底部
     if (this.pullUpLoad) {
-      this.scroll.on("pullingUp", () => {
+      this.scroll.on('pullingUp', () => {
         // console.log('监听到滚动到底部');
-        this.$emit("pullingUp");
+        this.$emit('pullingUp');
       });
     }
   },
@@ -59,7 +59,7 @@ export default {
     // 刷新
     refresh() {
       this.scroll && this.scroll.refresh();
-      // console.log("----");
+      // console.log('----');
     },
     // 完成上拉加载更多
     finishPullUp() {
@@ -68,8 +68,8 @@ export default {
     // 获取位置y 记录离开位置
     getScrollY() {
       return this.scroll ? this.scroll.y : 0;
-    },
-  },
+    }
+  }
 };
 </script>
  <!-- 类名与外界相同也不要紧，style有个scoped属性会限制作用域的 -->

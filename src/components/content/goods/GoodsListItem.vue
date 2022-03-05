@@ -1,6 +1,6 @@
 <template>
   <div class="goods-item" @click="itemClick">
-    <img :src="goodsItem.show.img" alt="" @load="imgLoad" />
+    <img v-lazy="showImage" :key="showImage" alt="" @load="imgLoad" />
     <div class="goods-info">
       <p>{{ goodsItem.title }}</p>
       <span class="price">{{ goodsItem.price }}</span>
@@ -11,29 +11,34 @@
 
 <script>
 export default {
-  name: "GoodsListItem",
+  name: 'GoodsListItem',
   props: {
     goodsItem: {
       type: Object,
-      default() {
+      default () {
         return {};
-      },
-    },
+      }
+    }
+  },
+  computed: {
+    showImage () {
+      return this.goodsItem.image || this.goodsItem.show.img;
+    }
   },
   methods: {
-    imgLoad() {
+    imgLoad () {
       // console.log('load');
-      this.$bus.$emit("imageItemLoad");
+      this.$bus.$emit('imageItemLoad');
     },
-    itemClick() {
+    itemClick () {
       this.$router.push({
-        path:'/detail/',
-        query:{
-          iid:this.goodsItem.iid
+        path: '/detail/',
+        query: {
+          iid: this.goodsItem.iid
         }
       });
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -77,12 +82,12 @@ export default {
 }
 
 .goods-info .collect::before {
-  content: "";
+  content: '';
   position: absolute;
   left: -15px;
   top: -1px;
   width: 14px;
   height: 14px;
-  background: url("~assets/img/common/collect.svg") 0 0/14px 14px;
+  background: url('~assets/img/common/collect.svg') 0 0/14px 14px;
 }
 </style>

@@ -4,22 +4,9 @@
       <div slot="center">购物街</div>
     </nav-bar>
     <!-- 选项卡 -->
-    <tab-control
-      :titles="['流行', '新款', '精选']"
-      @tabClick="tabClick"
-      ref="tabControl1"
-      class="tab-control"
-      v-show="isTabFixed"
-    ></tab-control>
+    <tab-control :titles="['流行', '新款', '精选']" @tabClick="tabClick" ref="tabControl1" class="tab-control" v-show="isTabFixed"></tab-control>
     <!-- better-scroll滚动scroll -->
-    <scroll
-      class="content"
-      ref="scroll"
-      :probe-type="3"
-      @scroll="contentScroll"
-      :pull-up-load="true"
-      @pullingUp="loadMore"
-    >
+    <scroll class="content" ref="scroll" :probe-type="3" @scroll="contentScroll" :pull-up-load="true" @pullingUp="loadMore">
       <!-- 轮播图homeswiper -->
       <home-swiper :banners="banners" @swiperImageLoad="swiperImageLoad" />
       <!-- 商品推荐 -->
@@ -27,11 +14,7 @@
       <!-- 本周流行 -->
       <popular-view></popular-view>
       <!-- 选项卡 -->
-      <tab-control
-        :titles="['流行', '新款', '精选']"
-        @tabClick="tabClick"
-        ref="tabControl2"
-      ></tab-control>
+      <tab-control :titles="['流行', '新款', '精选']" @tabClick="tabClick" ref="tabControl2"></tab-control>
       <goods-list :goods="showGoods"></goods-list>
     </scroll>
     <!-- backtop不需要一起滚 -->
@@ -41,21 +24,22 @@
 </template>
 
 <script>
-import HomeSwiper from "./childComps/HomeSwiper";
-import RecommendView from "./childComps/RecommendView";
-import PopularView from "./childComps/popularView";
+import HomeSwiper from './childComps/HomeSwiper';
+import RecommendView from './childComps/RecommendView';
+import PopularView from './childComps/popularView';
 
-import NavBar from "components/common/navbar/NavBar";
-import TabControl from "components/content/tabControl/TabControl";
-import GoodsList from "components/content/goods/GoodsList";
-import Scroll from "components/common/scroll/Scroll";
-import BackTop from "components/content/backTop/BackTop";
+import NavBar from 'components/common/navbar/NavBar';
+import TabControl from 'components/content/tabControl/TabControl';
+import GoodsList from 'components/content/goods/GoodsList';
+import Scroll from 'components/common/scroll/Scroll';
+import BackTop from 'components/content/backTop/BackTop';
 
-import { getHomeMultidata, getHomeGoods } from "network/home";
-import { debounce } from "common/utils";
+import { getHomeMultidata, getHomeGoods } from 'network/home';
+import { debounce } from 'common/utils';
+import { itemListenerMixin } from 'common/mixin';
 
 export default {
-  name: "Home",
+  name: 'Home',
   components: {
     HomeSwiper,
     RecommendView,
@@ -64,12 +48,13 @@ export default {
     TabControl,
     GoodsList,
     Scroll,
-    BackTop,
+    BackTop
   },
+  mixins: [itemListenerMixin],
   computed: {
     showGoods() {
       return this.goods[this.currentType].list;
-    },
+    }
   },
   data() {
     return {
@@ -78,49 +63,57 @@ export default {
       goods: {
         pop: {
           page: 0,
-          list: [],
+          list: []
         },
         new: {
           page: 0,
-          list: [],
+          list: []
         },
         sell: {
           page: 0,
-          list: [],
-        },
+          list: []
+        }
       },
-      currentType: "pop",
+      currentType: 'pop',
       isShowBackTop: false,
       tabOffsetTop: 0,
       isTabFixed: false,
-      saveY:0
+      saveY: 0
     };
   },
   created() {
     //请求多个数据
     this.getHomeMultidata();
     //请求商品数据
-    this.getHomeGoods("pop");
-    this.getHomeGoods("new");
-    this.getHomeGoods("sell");
+    this.getHomeGoods('pop');
+    this.getHomeGoods('new');
+    this.getHomeGoods('sell');
   },
   mounted() {
-    const refresh = debounce(this.$refs.scroll.refresh, 200);
-    //监听item图片加载完成
-    this.$bus.$on("imageItemLoad", () => {
-      refresh();
-    });
+    // const refresh = debounce(this.$refs.scroll.refresh, 200);
+    // //监听item图片加载完成
+    // //对监听的事件进行保存
+    // this.itemImgListener = () => {
+    //   refresh();
+    // };
+    // this.$bus.$on('imageItemLoad', this.itemImgListener);
     // 获取tabControl的offsetTop
     // 组件没有offsetTop-> 所有的组件都有一个属性$el:用于获取组件中的元素
     // console.log(this.$refs.tabControl.$el.offsetTop);
     // 在这里获取不准，可能图片还没加载完，在轮播图加载完再获取
   },
-  activated () {
-    this.$refs.scroll.refresh()
-    this.$refs.scroll.scrollTo(0,this.saveY,0)
+  activated() {
+    // 最好刷新一下 以防出现不能滚动的bug
+    this.$refs.scroll.refresh();
+    this.$refs.scroll.scrollTo(0, this.saveY, 0);
   },
-  deactivated () {
-    this.saveY=this.$refs.scroll.getScrollY
+  deactivated() {
+    // 1. 保存离开home时的位置
+    this.saveY = this.$refs.scroll.getScrollY();
+    // console.log(this.saveY);
+
+    // 2.取消全局事件的监听，这里的第二个参数(on对应的第二个参数)必须要传，不然这个全局事件全部取消
+    this.$bus.$off('itemImageLoad', this.itemImgListener);
   },
   methods: {
     /* 
@@ -130,18 +123,18 @@ export default {
       // console.log(index);
       switch (index) {
         case 0:
-          this.currentType = "pop";
+          this.currentType = 'pop';
           break;
         case 1:
-          this.currentType = "new";
+          this.currentType = 'new';
           break;
         case 2:
-          this.currentType = "sell";
+          this.currentType = 'sell';
           break;
       }
       // 使两个选项卡同步
-      this.$refs.tabControl1.currentIndex=index
-      this.$refs.tabControl2.currentIndex=index
+      this.$refs.tabControl1.currentIndex = index;
+      this.$refs.tabControl2.currentIndex = index;
     },
     // 点击backtop回到顶部
     backClick() {
@@ -195,8 +188,8 @@ export default {
         // 完成上拉加载更多
         this.$refs.scroll.finishPullUp();
       });
-    },
-  },
+    }
+  }
 };
 </script>
 
