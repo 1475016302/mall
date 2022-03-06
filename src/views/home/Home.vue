@@ -52,11 +52,11 @@ export default {
   },
   mixins: [itemListenerMixin],
   computed: {
-    showGoods() {
+    showGoods () {
       return this.goods[this.currentType].list;
     }
   },
-  data() {
+  data () {
     return {
       banners: [],
       recommends: [],
@@ -81,7 +81,7 @@ export default {
       saveY: 0
     };
   },
-  created() {
+  created () {
     //请求多个数据
     this.getHomeMultidata();
     //请求商品数据
@@ -89,7 +89,7 @@ export default {
     this.getHomeGoods('new');
     this.getHomeGoods('sell');
   },
-  mounted() {
+  mounted () {
     // const refresh = debounce(this.$refs.scroll.refresh, 200);
     // //监听item图片加载完成
     // //对监听的事件进行保存
@@ -102,12 +102,12 @@ export default {
     // console.log(this.$refs.tabControl.$el.offsetTop);
     // 在这里获取不准，可能图片还没加载完，在轮播图加载完再获取
   },
-  activated() {
+  activated () {
     // 最好刷新一下 以防出现不能滚动的bug
     this.$refs.scroll.refresh();
     this.$refs.scroll.scrollTo(0, this.saveY, 0);
   },
-  deactivated() {
+  deactivated () {
     // 1. 保存离开home时的位置
     this.saveY = this.$refs.scroll.getScrollY();
     // console.log(this.saveY);
@@ -119,7 +119,7 @@ export default {
     /* 
      事件监听相关的方法 
      */
-    tabClick(index) {
+    tabClick (index) {
       // console.log(index);
       switch (index) {
         case 0:
@@ -137,7 +137,7 @@ export default {
       this.$refs.tabControl2.currentIndex = index;
     },
     // 点击backtop回到顶部
-    backClick() {
+    backClick () {
       // console.log('backClick');
       //第一个scroll是子组件的ref="scroll"可以获取到这个子组件 第二个scroll是子组件data里的scroll
       //第三个参数是毫秒
@@ -146,7 +146,7 @@ export default {
       // this.$refs.scroll.scrollTo(0, 0);
     },
     // 监听滚动
-    contentScroll(position) {
+    contentScroll (position) {
       // 1.判断BackTop是否显示
       // console.log(position);
       // position.y是负的
@@ -155,12 +155,12 @@ export default {
       this.isTabFixed = Math.abs(position.y) > this.tabOffsetTop;
     },
     // 上拉加载更多
-    loadMore() {
+    loadMore () {
       // console.log('加载更多');
       this.getHomeGoods(this.currentType);
     },
     // 轮播图加载完成
-    swiperImageLoad() {
+    swiperImageLoad () {
       // console.log(this.$refs.tabControl2.$el.offsetTop);
       this.tabOffsetTop = this.$refs.tabControl2.$el.offsetTop;
     },
@@ -168,14 +168,14 @@ export default {
     /* 
     网络请求相关的方法
      */
-    getHomeMultidata() {
+    getHomeMultidata () {
       getHomeMultidata().then((res) => {
         // console.log(res);
         this.banners = res.data.banner.list;
         this.recommends = res.data.recommend.list;
       });
     },
-    getHomeGoods(type) {
+    getHomeGoods (type) {
       //对于已经存在的属性和方法，用.和用[]得到的结果一致
       //对于不存在(未定义)的属性和方法，用.会创建这个新的属性或方法，而用[]的方式访问不会创建新的属性或方法
       //[]里面可以传变量、参数、表达式，而.后面只能跟一个固定的属性
@@ -203,6 +203,8 @@ export default {
 .home-nav {
   background-color: var(--color-tint);
   color: #fff;
+  font-weight: 700;
+  font-size: 17px;
   /* position: fixed;
   left: 0;
   top: 0;

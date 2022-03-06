@@ -1,8 +1,14 @@
 <template>
   <div id="tab-bar-item" @click="itemClick">
-    <div v-if="!isActive"><slot name="item-icon"></slot></div>
-    <div v-else><slot name="item-icon-active"></slot></div>
-    <div :style="activeStyle"><slot name="item-text"></slot></div>
+    <div v-if="!isActive">
+      <slot name="item-icon"></slot>
+    </div>
+    <div v-else>
+      <slot name="item-icon-active"></slot>
+    </div>
+    <div :style="activeStyle">
+      <slot name="item-text"></slot>
+    </div>
   </div>
 </template>
 
@@ -10,11 +16,11 @@
 export default {
   name: "TabBarItem",
   computed: {
-    isActive() {
+    isActive () {
       // return this.$route.path == this.path
       return this.$route.path.indexOf(this.path) !== -1;
     },
-    activeStyle() {
+    activeStyle () {
       //判断是不是处于状态 若是设置color属性 如果不是返回空对象
       return this.isActive ? { color: this.activeColor } : {};
     },
@@ -26,13 +32,13 @@ export default {
       default: "#ff5777",
     },
   },
-  data() {
+  data () {
     return {
       // isActive: true,
     };
   },
   methods: {
-    itemClick() {
+    itemClick () {
       // console.log('itemClick');
       if (this.$route.path !== this.path) {
         this.$router.push(this.path);

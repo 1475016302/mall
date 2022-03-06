@@ -28,7 +28,7 @@ export default {
 <style scoped>
 #list {
   background-color: #fff;
-  font-size: 18px;
+  font-size: 16px;
   color: #333;
 }
 

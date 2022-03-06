@@ -1,7 +1,7 @@
 <template>
   <div id="profile">
     <nav-bar class="nav-bar">
-      <div slot="center" class="title">购物街</div>
+      <div slot="center" class="title">个人中心</div>
     </nav-bar>
     <!--1.单独封装一个组件: 利用slot知识点-->
     <UserInfo></UserInfo>
@@ -71,7 +71,7 @@ export default {
   background-color: var(--color-tint);
   font-weight: 700;
   color: #fff;
-  height: 50px;
+  font-size: 17px;
 }
 .title {
   margin-top: 5px;

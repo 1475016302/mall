@@ -124,6 +124,7 @@ export default {
   background-color: var(--color-tint);
   font-weight: 700;
   color: #fff;
+  font-size: 17px;
 }
 
 .content {

@@ -7,7 +7,7 @@
   --color-high-text: #fc6782;
   --color-tint: #ff8198;
   --color-background: #fff;
-  --font-size: 14px;
+  --font-size: 16px;
   --line-height: 1.5;
 }
 
@@ -29,6 +29,7 @@ body {
   color: var(--color-text);
   /* rem vw/vh */
   width: 100vw;
+  font-size: 16px;
 }
 
 a {
