@@ -1,4 +1,8 @@
 module.exports = {
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/mall'
+    : '/'
+  ,
   transpileDependencies: true,
   configureWebpack: {
     resolve: {
