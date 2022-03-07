@@ -15,10 +15,10 @@ Vue.prototype.$bus = new Vue()
 // 安装Toast插件 会去执行toast里面的index.js的install函数
 Vue.use(toast)
 
-// 使用懒加载插件
-Vue.use(VueLazyLoad, {
-  // loading: require('assets/img/common/watermark.png')
-})
+// // 使用懒加载插件
+// Vue.use(VueLazyLoad, {
+//   // loading: require('assets/img/common/watermark.png')
+// })
 
 // 解决移动端300ms延迟
 FastClick.attach(document.body)
