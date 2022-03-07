@@ -17,7 +17,7 @@ Vue.use(toast)
 
 // 使用懒加载插件
 Vue.use(VueLazyLoad, {
-  // loading: require('assets/img/common/watermark.png')
+  loading: require('assets/img/common/watermark.png')
 })
 
 // 解决移动端300ms延迟
